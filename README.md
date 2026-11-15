@@ -6,10 +6,11 @@ A no-dependency, static website prototype. Open `index.html` in a modern browser
 
 - Eight starting styles with the agreed AUD prices
 - Booking form with date selection and daily time slots from 10:00 am to 7:00 pm
-- Owner dashboard for bookings, style and price edits, grouped photo uploads, and working hours
+- Owner dashboard for upcoming bookings, customer details, booking status management, style and price edits, grouped photo uploads, and working hours
 - Client photo gallery for each hairstyle, with horizontal swipe/scroll, previous/next arrows, and a position indicator
 - Per-photo crop position, zoom, and rotation controls with preview, save, and reset
-- CSV booking export, favicon, Privacy Policy, and Terms & Conditions
+- Booking requests saved locally with requested, confirmed, completed, or cancelled status; cancelled slots become available again
+- CSV booking export including booking status, favicon, Privacy Policy, and Terms & Conditions
 - Charcoal and pink styling with text-only salon branding
 
 ## Current limits
