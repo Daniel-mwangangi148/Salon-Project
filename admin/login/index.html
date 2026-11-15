@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171516">
+  <title>Owner login | Hair by Sara</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../auth.css">
+</head>
+<body>
+  <header class="admin-topbar"><a class="wordmark" href="../../index.html"><span>Hair <i>by</i> Sara</span></a><span class="eyebrow">OWNER AREA</span></header>
+  <main class="auth-page"><section class="auth-card"><p class="eyebrow">HAIR BY SARA · OWNER</p><h1 id="auth-title">Owner login</h1><p id="auth-description">Enter your owner passcode.</p><form id="owner-login-form"><label>Passcode<input name="password" type="password" minlength="10" autocomplete="current-password" required></label><label id="confirm-field">Confirm passcode<input name="confirmPassword" type="password" minlength="10" autocomplete="new-password"></label><p id="auth-message" class="auth-message" role="status"></p><button class="button" type="submit">Sign in</button></form><aside class="auth-note">This static version stores a passcode verifier and owner data in this browser. It separates the owner screens during development, but it is not secure authentication for a public website. Server-side authentication is needed before public deployment.</aside><a class="back-link" href="../../index.html">← Back to the public website</a></section></main>
+  <script src="../auth.js"></script>
+</body>
+</html>
