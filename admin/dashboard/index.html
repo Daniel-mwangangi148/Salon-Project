@@ -3,11 +3,19 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171516">
   <title>Owner dashboard | Hair by Sara</title><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../auth.css">
-  <script>if(sessionStorage.getItem('hairBySara.ownerSession.v1')!=='active')location.replace('../login/');</script>
 </head>
 <body>
   <header class="admin-topbar"><a class="wordmark" href="../../index.html"><span>Hair <i>by</i> Sara</span></a><div class="row-actions"><span class="eyebrow">OWNER DASHBOARD</span><button id="owner-logout" class="button button-small button-outline" type="button">Log out</button></div></header>
-  <main class="admin-stage"><iframe class="admin-frame" title="Hair by Sara owner dashboard" src="../../index.html?owner=1"></iframe></main>
-  <script>document.querySelector('#owner-logout').onclick=()=>{sessionStorage.removeItem('hairBySara.ownerSession.v1');location.replace('../login/')};</script>
+  <main id="owner-stage" class="admin-stage" hidden><iframe id="owner-frame" class="admin-frame" title="Hair by Sara owner dashboard"></iframe></main>
+  <p id="dashboard-auth-error" class="auth-message" role="status"></p>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../../supabase-config.js"></script><script src="../../data-store.js"></script>
+  <script>
+    (async()=>{
+      const stage=document.querySelector('#owner-stage'),frame=document.querySelector('#owner-frame'),message=document.querySelector('#dashboard-auth-error');
+      try{const user=await window.HairBySaraDataStore.getUser();if(!user||!await window.HairBySaraDataStore.isOwner()){location.replace('../login/');return}stage.hidden=false;frame.src='../../index.html?owner=1'}
+      catch{message.textContent='Owner access could not be verified. Please sign in again.';location.replace('../login/')}
+    })();
+    document.querySelector('#owner-logout').onclick=async()=>{try{await window.HairBySaraDataStore.signOut()}finally{location.replace('../login/')}};
+  </script>
 </body>
 </html>
