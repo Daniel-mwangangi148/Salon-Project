@@ -171,8 +171,17 @@ async function exportBackup(source){
   }
   return{format:'hair-by-sara-local-backup-v1',exportedAt:new Date().toISOString(),storageKey:KEY,data};
 }
+function subscribeToChanges(onChange,{ownerMode=false}={}){
+  const db=getClient(),channel=db.channel('hair-by-sara-live-data');
+  for(const table of ['hairstyles','hairstyle_images','working_hours']){
+    channel.on('postgres_changes',{event:'*',schema:'public',table},onChange);
+  }
+  if(ownerMode)channel.on('postgres_changes',{event:'*',schema:'public',table:'bookings'},onChange);
+  channel.subscribe();
+  return()=>db.removeChannel(channel);
+}
 window.HairBySaraDataStore={
-  key:KEY,readLocal,saveLocal,load,availableSlots,requestBooking,saveStyle,deleteStyle,updateBookingStatus,deleteBooking,saveWorkingHours,syncOwnerState,importBackup,exportBackup,
+  key:KEY,readLocal,saveLocal,load,availableSlots,requestBooking,saveStyle,deleteStyle,updateBookingStatus,deleteBooking,saveWorkingHours,syncOwnerState,importBackup,exportBackup,subscribeToChanges,
   getUser,isOwner,
   signIn:(email,password)=>getClient().auth.signInWithPassword({email,password}),
   signOut:()=>getClient().auth.signOut()

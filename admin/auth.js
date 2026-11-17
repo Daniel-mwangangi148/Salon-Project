@@ -1,5 +1,10 @@
 (()=>{'use strict';
 const form=document.querySelector('#owner-login-form'),button=form.querySelector('button[type=submit]'),message=document.querySelector('#auth-message'),store=window.HairBySaraDataStore;
+if(location.protocol==='file:'){
+  message.innerHTML='Owner sign-in needs the website opened over localhost or its hosted address. Start the site by double-clicking <strong>open-owner-dashboard.bat</strong> in the salon project folder, then <a class="back-link" href="http://127.0.0.1:4173/admin/login/">open owner login</a>.';
+  button.disabled=true;
+  return;
+}
 async function routeOwnerIfSignedIn(){
   try{if(await store.isOwner())location.replace('../dashboard/')}
   catch{message.textContent='Owner access is not set up yet. Apply the Supabase database migration and authorize the owner account first.'}

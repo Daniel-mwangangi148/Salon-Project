@@ -12,6 +12,10 @@
   <script>
     (async()=>{
       const stage=document.querySelector('#owner-stage'),frame=document.querySelector('#owner-frame'),message=document.querySelector('#dashboard-auth-error');
+      if(location.protocol==='file:'){
+        message.innerHTML='This dashboard was opened as a local file, so its embedded salon data cannot load reliably. Start the site by double-clicking <strong>open-owner-dashboard.bat</strong> in the salon project folder, then <a class="back-link" href="http://127.0.0.1:4173/admin/login/">open owner login</a>.';
+        return;
+      }
       try{const user=await window.HairBySaraDataStore.getUser();if(!user||!await window.HairBySaraDataStore.isOwner()){location.replace('../login/');return}stage.hidden=false;frame.src='../../index.html?owner=1'}
       catch{message.textContent='Owner access could not be verified. Please sign in again.';location.replace('../login/')}
     })();
